@@ -8,7 +8,7 @@ function addTaskBtn() {
     var newTaskEl = document.createElement("li"); 
     
     newTaskEl.textContent = "New Task";
-    newTaskEl.className = "list-item-groups"; 
+    newTaskEl.className = "task-item"; 
     taskEL.appendChild(newTaskEl);
     
 }
