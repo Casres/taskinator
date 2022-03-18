@@ -101,6 +101,7 @@ footer {
   background: rgb(196, 196, 196);
   border-radius: 12px;
   border: 2px solid var(--grey);
+  line-height: 3rem;
 }
 
 .task-item {
