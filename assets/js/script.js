@@ -8,16 +8,8 @@ var tasksToDoEl = document.querySelector("#list-items");
 
 var taskFormHandler = function(event) {
 
-    
-};
-
-var createTaskEl = function(taskDataObj) {
-    
-    // --Idk what this does, like I have a rough idea but nothing substantial-- 
     // --Idk what this does, like I have a rough idea but nothing substantial-- 
     event.preventDefault();
-    
-    
     
     // what task the user puts in
     var taskNameInput = document.querySelector("input[name='task-name']").value;
@@ -26,8 +18,16 @@ var createTaskEl = function(taskDataObj) {
     // the type of task that they pick from the options pop down menu
     var taskTypeInput = document.querySelector("select[name='task-type']").value;
     console.log(taskTypeInput);
-    
-    
+
+    // package up data as an object
+    var taskDataObj = {
+        name: taskNameInput , 
+        type: taskTypeInput
+    };
+    createTaskEl(taskDataObj);
+};
+
+var createTaskEl = function(taskDataObj) {
     
     // this creates an list element 
     var listItemEl = document.createElement("li");
@@ -35,15 +35,14 @@ var createTaskEl = function(taskDataObj) {
     // --this was adding extra words for some reason--
     // listItemEl.textContent = taskNameInput;
     
-    
-    
+
     // this creates a div element 
     var taskInfoEl = document.createElement("div");
     taskInfoEl.className = "task-info";
     
     // this adds the task type under what the task is
     // --this works like text.contebnt but you can addd HTML elements to it as shown below--
-    taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'>" + taskTypeInput + "</span>";
+    taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
     
     
     // this attachest the task type to the task
@@ -51,7 +50,7 @@ var createTaskEl = function(taskDataObj) {
     
     // this attatches the the task to the ul element, putting it in the grey area for the list
     tasksToDoEl.appendChild(listItemEl);
-    
+
   }
 
 // this runs the dynamic list
