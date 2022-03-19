@@ -5,7 +5,7 @@ var formEl = document.querySelector("#task-form");
 // this reps the list that the tasks go into
 var tasksToDoEl = document.querySelector("#list-items");
 
-
+// this captures the input from the user
 var taskFormHandler = function(event) {
 
     // --Idk what this does, like I have a rough idea but nothing substantial-- 
@@ -19,6 +19,12 @@ var taskFormHandler = function(event) {
     var taskTypeInput = document.querySelector("select[name='task-type']").value;
     console.log(taskTypeInput);
 
+    if(!taskNameInput || !taskTypeInput) {
+        alert("Plaese fill out both forms");
+        return false;
+    }
+    formEl.reset();
+
     // package up data as an object
     var taskDataObj = {
         name: taskNameInput , 
@@ -27,6 +33,7 @@ var taskFormHandler = function(event) {
     createTaskEl(taskDataObj);
 };
 
+// the input from the user is received here and turns it into a list item in html through js (dynamically) 
 var createTaskEl = function(taskDataObj) {
     
     // this creates an list element 
