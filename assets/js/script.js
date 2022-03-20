@@ -200,9 +200,10 @@ var taskButtonHandler = function(event) {
         editTask(taskId);
     } 
     // delete button was clicked
-    else if (event.target.matches(".delete-btn")) {
+    else if (targetEl.matches(".delete-btn")) {
         var taskId = event.target.getAttribute("data-task-id");
         deleteTask(taskId);
+        console.log("delete button hit");
     }
 };
 
