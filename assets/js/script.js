@@ -59,13 +59,13 @@ var taskFormHandler = function(event) {
 
 var completeEditTask = function(taskName, taskType, taskId) {
 
-    var taskSelected = document.querySelector((".task-item[data-id='" + taskId + "']"));
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
 
     //set new vaules
     taskSelected.querySelector("h3.task-name").textContent = taskName;
     taskSelected.querySelector("span.task-type").textContent = taskType;
 
-    alert("Task Updated!");
+    // alert("Task Updated!");
 
     formEl.removeAttribute("data-task-id");
     document.querySelector("#save-task").textContent = "Add Task";
@@ -88,7 +88,7 @@ var createTaskEl = function(taskDataObj) {
     var taskInfoEl = document.createElement("div");
     taskInfoEl.className = "task-info";
     
-    // this adds the task name and task type into the html
+    // this adds the task name and task type into the dynamically generated html task item
     taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
     
     
