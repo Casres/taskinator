@@ -13,6 +13,12 @@ var formEl = document.querySelector("#task-form");
 // this reps the list that the tasks go into
 var tasksToDoEl = document.querySelector("#list-items");
 
+// task in progress list colum list
+var tasksInProgressEl = document.querySelector("#tasks-in-progress");
+
+// tasks completed coulm list
+var tasksCompletedEl = document.querySelector("#tasks-completed");
+
 var taskIdCounter = 0;
 
 // this captures the input from the user
@@ -47,10 +53,9 @@ var taskFormHandler = function(event) {
             name: taskNameInput , 
             type: taskTypeInput
         };
+        createTaskEl(taskDataObj);
         
     }
-
-    createTaskEl(taskDataObj);
 
     // this resets the form when something is added
     formEl.reset();
@@ -168,15 +173,17 @@ var editTask = function(taskId) {
     // get task list item element
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
 
-
+    // get content from task name and type
     var taskName = taskSelected.querySelector("h3.task-name").textContent;
     document.querySelector("input[name='task-name']").value = taskName;
 
-
+    // get content from task name and type
     var taskType = taskSelected.querySelector("span.task-type").textContent;
-    document.querySelector("select[name='task-type']").value = taskType;
 
+    // these update the task
+    document.querySelector("select[name='task-type']").value = taskType;
     document.querySelector("#save-task").textContent = "save-task";
+
 
     formEl.setAttribute("data-task-id", taskId);
 
@@ -199,7 +206,31 @@ var taskButtonHandler = function(event) {
     }
 };
 
+var taskStatusChangeHandler = function(event) {
+
+    // get the task item's Id
+    var taskId = event.target.getAttribute("data-task-id");
+
+    // get the currently selected option's value and convert to lowercase
+    var statusValue = event.target.value.toLowerCase();
+
+    // find the parent task item element based on the Id
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+
+    // attaching the items to the parent element of the list that they reside in
+    if (statusValue === "to do") {
+        tasksToDoEl.appendChild(taskSelected);
+    } 
+    else if (statusValue === "in progress") {
+        tasksInProgressEl.appendChild(taskSelected);
+    } 
+    else if (statusValue === "completed") {
+        tasksCompletedEl.appendChild(taskSelected);
+    }
+      
+};
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 
 
+pageContentEl.addEventListener("change", taskStatusChangeHandler);
