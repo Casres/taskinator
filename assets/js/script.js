@@ -2,6 +2,8 @@
 
 
 
+var tasks = []; 
+
 
 
 // this represents the colum lists that hold the tasks
@@ -19,6 +21,7 @@ var tasksInProgressEl = document.querySelector("#tasks-in-progress");
 // tasks completed coulm list
 var tasksCompletedEl = document.querySelector("#tasks-completed");
 
+// gives a dynamically generated task an Id #
 var taskIdCounter = 0;
 
 // this captures the input from the user
@@ -51,7 +54,8 @@ var taskFormHandler = function(event) {
         // package up data as an object
         var taskDataObj = {
             name: taskNameInput , 
-            type: taskTypeInput
+            type: taskTypeInput ,
+            status: "to do"
         };
         createTaskEl(taskDataObj);
         
@@ -62,6 +66,7 @@ var taskFormHandler = function(event) {
 
 };
 
+
 var completeEditTask = function(taskName, taskType, taskId) {
 
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
@@ -70,7 +75,14 @@ var completeEditTask = function(taskName, taskType, taskId) {
     taskSelected.querySelector("h3.task-name").textContent = taskName;
     taskSelected.querySelector("span.task-type").textContent = taskType;
 
-    // alert("Task Updated!");
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === parseInt(taskId)) {
+          tasks[i].name = taskName;
+          tasks[i].type = taskType;
+        }
+    };
+   
+    alert("Task Updated!");
 
     formEl.removeAttribute("data-task-id");
     document.querySelector("#save-task").textContent = "Add Task";
@@ -79,7 +91,8 @@ var completeEditTask = function(taskName, taskType, taskId) {
 
 // the input from the user is received here and turns it into a list item in html through js (dynamically) 
 var createTaskEl = function(taskDataObj) {
-
+    console.log(taskDataObj);
+    console.log(taskDataObj.status);
     
     // this creates an list element 
     var listItemEl = document.createElement("li");
@@ -99,6 +112,9 @@ var createTaskEl = function(taskDataObj) {
     
     // this attachest the task type to the task
     listItemEl.appendChild(taskInfoEl);
+
+    taskDataObj.id = taskIdCounter;
+    tasks.push(taskDataObj);
 
     var taskActionsEl = createTaskActions(taskIdCounter);
     listItemEl.appendChild(taskActionsEl);
@@ -164,7 +180,10 @@ var createTaskActions = function(taskId) {
 formEl.addEventListener("submit", taskFormHandler);
 
 var deleteTask = function(taskId) {
-    console.log(taskId);
+
+   var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+   taskSelected.remove();
+
 };
 
 var editTask = function(taskId) {
@@ -201,8 +220,10 @@ var taskButtonHandler = function(event) {
     } 
     // delete button was clicked
     else if (targetEl.matches(".delete-btn")) {
+        // get the element's task Id
         var taskId = event.target.getAttribute("data-task-id");
         deleteTask(taskId);
+        // console.log(taskId);
         console.log("delete button hit");
     }
 };
