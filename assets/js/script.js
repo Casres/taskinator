@@ -293,10 +293,14 @@ var loadTasks = function () {
     // Converts tasks from the sting format back into an array of objects
     tasks = JSON.parse(tasks);
     console.log(tasks);
+    console.log("are you seeing this??");
 
     // iterates through a tasks array and creates task elements on the page from it
-
- }
+    for (var i = 0; i < tasks.length; i++) {
+        // const element = tasks[i];
+        console.log(tasks[i]);
+    }
+}
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 
